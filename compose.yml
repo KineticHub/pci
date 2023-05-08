@@ -30,7 +30,7 @@ services:
       context: docker/database/
       dockerfile: Dockerfile
     image: krazydocker/pci-database-postgres:latest
-    container_name: pci_database_fast
+    container_name: pci_database_postgres
     volumes:
       - pci_database_data:/var/lib/postgresql/data
     environment:
