@@ -18,7 +18,7 @@ async def say_hello(name: str):
 
 
 @app.get("/database/version")
-async def check_database_connection():
+def check_database_connection():
     conn = psycopg2.connect(
         host=os.environ.get('DB_HOST', "localhost"),
         database=os.environ.get('DB_NAME'),
