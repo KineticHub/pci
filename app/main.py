@@ -3,6 +3,7 @@ import os
 import psycopg2 as psycopg2
 from fastapi import FastAPI
 
+from app.utils.database import run_query
 
 app = FastAPI()
 
@@ -19,16 +20,5 @@ async def say_hello(name: str):
 
 @app.get("/database/version")
 def check_database_connection():
-    conn = psycopg2.connect(
-        host=os.environ.get('DB_HOST', "localhost"),
-        database=os.environ.get('DB_NAME'),
-        user=os.environ.get('DB_USER'),
-        password=os.environ.get('DB_PASSWORD'),
-        port=os.environ.get('DB_PORT', "5432")
-    )
-
-    cur = conn.cursor()
-    cur.execute('SELECT version()')
-    db_version = cur.fetchone()
+    db_version = run_query('SELECT version()')
     return {"message": f"Version: {db_version}"}
-
